@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --linear-grad: linear-gradient(to bottom right, rgb(126, 59, 59), rgb(255, 0, 38));
+    --grad-clr1: rgb(20, 30, 48);
+    --grad-clr2: rgb(236, 24, 57);
+}
+body {
+    height: 100vh;
+    margin: 100px;
+    font-family: 'Poppins', sans-serif;
+    background-color: transparent;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+    background-image: url(https://i.pinimg.com/originals/66/4a/83/664a83d8f075609d6a58e3dbb38f09e0.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    overflow-x: hidden;
+}
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+h1 {
+    margin-bottom: 20px;
+    color: var(--grad-clr1);
+}
+label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--grad-clr1);
+    margin-bottom: 5px;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+}
+button {
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid var(--grad-clr1);
+    border-radius: 25px;
+    background: var(--linear-grad);
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+button:hover {
+    background: #fff;
+    color: var(--grad-clr1);
+}
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.main-page {
+    width: 100%;
+    background: var(--grad-clr1);
+}
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--grad-clr2);
+    box-shadow: 0 0 5px rgba(236, 24, 57, 0.5);
+}
+.timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--grad-clr2);
+}
