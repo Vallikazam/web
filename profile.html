@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled User Profile</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <script type="module" src="JS/scripts.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <div id="timer" class="timer">00:00:00</div>
+
+        <form>
+            <label for="barCode">BarCode</label>
+            <input type="number" id="barCode" placeholder="Enter BarCode">
+
+            <label for="fName">First Name</label>
+            <input type="text" id="fName" placeholder="Enter First Name">
+
+            <label for="lName">Last Name</label>
+            <input type="text" id="lName" placeholder="Enter Last Name">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Enter Email">
+
+            <label for="eGroup">Education Group</label>
+            <select id="eGroup">
+                <option value="SE">Software Engineering</option>
+                <option value="CB">Cybersecurity</option>
+                <option value="MT">Media Technologies</option>
+                <option value="CS">Computer Science</option>
+                <option value="BD">Big Data Analysis</option>
+                <option value="IOT">Industrial Internet of Things</option>
+            </select>
+
+            <label for="canCoding">Can Coding?</label>
+            <select id="canCoding">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <div class="button-group">
+                <button type="button" id="addBtn">Add</button>
+                <button type="button" id="retBtn">Retrieve</button>
+                <button type="button" id="updBtn">Update</button>
+                <button type="button" id="delBtn">Delete</button>
+            </div>
+
+            <button type="button" id="mainPageBtn" class="main-page">Go to Main Page</button>
+        </form>
+    </div>
+</body>
+</html>

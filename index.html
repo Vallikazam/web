@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manhwa Review</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/login_style.css">
+</head>
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+             <form> 
+                <div id="signUpMessage" class="messageDiv" style="display: none;"></div>
+                <h1>Create Account</h1>
+                <span>Use your email for registration</span>
+                <div class="infield">
+                    <input type="text" id="regName" placeholder="Name" />
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="email" id="regEmail" placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" id="regPass" placeholder="Password" />
+                    <label></label>
+                </div>
+                <button id="signUpBtn">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form>
+                <div id="signInMessage" class="messageDiv" style="display: none;"></div>
+                <h1>Sign in</h1>
+                <span>Use your account</span>
+                <div class="infield">
+                    <input type="email" id="email" placeholder="Email" name="email"/>
+                    <label></label>
+                </div>
+                <div class="infield">
+                    <input type="password" id="pass" placeholder="Password" />
+                    <label></label>
+                </div>
+                <button id="signInBtn">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container" id="overlayCon">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button>Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button>Sign Up</button>
+                </div>
+            </div>
+            <button id="overlayBtn"></button>
+        </div>
+    </div>
+
+    <script>
+        /* Sign in | Sign up */
+        const container = document.getElementById('container');
+        const overlayCon = document.getElementById('overlayCon');
+        const overlayBtn = document.getElementById('overlayBtn');
+
+        overlayBtn.addEventListener('click', ()=> {
+            container.classList.toggle('right-panel-active');
+
+            overlayBtn.classList.remove('btnScaled');
+            window.requestAnimationFrame( ()=> {
+                overlayBtn.classList.add('btnScaled')
+            })
+        })
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyBCznOPIBbhYZwlqpjQMvVESmtK2LGw_cw",
+            authDomain: "summerreview-b84c2.firebaseapp.com",
+            projectId: "summerreview-b84c2",
+            storageBucket: "summerreview-b84c2.firebasestorage.app",
+            messagingSenderId: "647677647968",
+            appId: "1:647677647968:web:a4d0a2dd2b198702be7705"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+    
+        function validatePassword(password) {
+            const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; 
+            return regex.test(password);
+        }
+        /* User Register */
+        document.getElementById("signUpBtn").addEventListener('click', async function (e) {
+            e.preventDefault();
+            const name = document.getElementById("regName").value;
+            const email = document.getElementById("regEmail").value;
+            const password = document.getElementById("regPass").value;
+    
+            if (!validatePassword(password)) {
+                alert("Password must be at least 8 characters long and contain both letters and numbers.");
+                return;
+            }
+    
+            try {
+                await set(ref(db, 'user/' + name), { name, email, password });
+                alert("Registration Successful!");
+                location.reload(); 
+            } catch (error) {
+                alert("Error during registration: " + error.message);
+            }
+        });
+    
+        /* User Authentication */
+        document.getElementById("signInBtn").addEventListener('click', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("pass").value;
+    
+            try {
+                const dbRef = ref(db);
+                const snapshot = await get(child(dbRef, `user`));
+                if (snapshot.exists()) {
+                    const users = snapshot.val();
+                    const user = Object.values(users).find(user => user.email === email && user.password === password);
+    
+                    if (user) {
+                        alert("Login Successful!");
+                        window.location.href = "profile.html"; 
+                    } else {
+                        alert("Invalid email or password.");
+                    }
+                } else {
+                    alert("No users found.");
+                }
+            } catch (error) {
+                alert("Error during authentication: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
